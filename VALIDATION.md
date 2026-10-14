@@ -11,3 +11,7 @@
 
 
 One exchange, daily-close execution assumptions, a small single holdout and illustrative gates. No liquidity, latency, funding, tax, exchange or order system. Exploring costs reuses the holdout; it creates no new out-of-sample evidence. Historical results are not a trading recommendation or future-return forecast.
+
+## October 14 UI and HTTPS update
+
+Approved loading-state fix preserves actual asset-failure errors. Responsive chart geometry increases measured phone axis-text height from about 6px to 14px at390px, with no horizontal overflow. Shared JavaScript domain calculations are unchanged. The Funnel gateway is enabled only for repair port10000. Both public relay addresses pass TLS1.3 and certificate hostname/chain validation; independent phone evidence is still pending.
