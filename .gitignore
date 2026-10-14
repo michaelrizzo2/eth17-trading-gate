@@ -7,3 +7,6 @@ __pycache__/
 *.py[cod]
 *.log
 .server-pid
+
+# Original research workspace; canonical flat datasets are tracked.
+data/

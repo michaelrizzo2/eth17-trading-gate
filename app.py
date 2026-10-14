@@ -96,3 +96,28 @@ def run(body: RunRequest):
         return evaluate(body.scenario, body.weight)
     except ValueError as exc:
         raise HTTPException(422, str(exc))
+
+# Enhanced evidence API; legacy synthetic endpoints remain reproducible.
+class EvidenceRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    scenario: str = 'all'
+    weight: int = Field(default=50, ge=0, le=100)
+    target: str = 'Northstar N14'
+    assumptions: dict[str, int] | None = None
+    profile: dict | None = None
+    slippage_bps: int = Field(default=10,ge=0,le=100)
+
+@app.post('/api/evidence')
+def evidence_run(body: EvidenceRequest):
+    from evidence import evaluate
+    try:
+        return evaluate(body.scenario,body.weight,body.slippage_bps)
+    except ValueError as exc:
+        raise HTTPException(422,str(exc))
+
+# Explicit public evidence assets; never expose arbitrary project paths.
+@app.get('/{asset}')
+def evidence_asset(asset: str):
+    if asset not in ('demo-engine.js','jobs-data.json','eth-history.json','evaluation-results.json'):
+        raise HTTPException(404,'Asset not found')
+    return FileResponse(ROOT / asset)

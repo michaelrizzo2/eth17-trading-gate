@@ -1,0 +1,7 @@
+# Historical ETH/USD daily candles
+
+Public Kraken spot-market snapshot captured at 2026-10-13T21:04:32.392936+00:00. Contains 720 complete UTC daily candles, 2024-10-23 through 2026-10-12, in chronological order. All OHLC, VWAP and volume values were checked for finiteness and positivity, OHLC ordering was checked, and timestamps are spaced exactly one day apart.
+
+Source: [https://api.kraken.com/0/public/OHLC?pair=ETHUSD&interval=1440](https://api.kraken.com/0/public/OHLC?pair=ETHUSD&interval=1440). [Official API documentation](https://docs.kraken.com/api-reference/market-data/get-ohlc-data) states the final candle is incomplete and the endpoint provides at most 720 entries. The final entry was discarded unconditionally. This is one exchange's spot prices; it is not an aggregate index or a claim of tradable future returns.
+
+`eth-history.json` contains metadata and a `candles` list with `timestamp` (Unix seconds), `date` (UTC), `open`, `high`, `low`, `close`, `vwap`, `volume` (ETH), and `trades`. Prices are USD. `kraken-response.json` retains the original response bytes. SHA-256 of those bytes is `562292d8466769b8a7cd0896a4c46fc04876c4a49b8e1ca094f72de326d014d1`. The candles checksum is computed from `json.dumps(candles, sort_keys=True, separators=(',', ':')).encode()` and recorded in metadata. Re-fetches produce a moving window and may contain historical corrections; use this saved snapshot for reproducible evaluations.
